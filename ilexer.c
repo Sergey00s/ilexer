@@ -8,8 +8,9 @@ int execer2(char *str, char *prog, char **pargs, char **env)
 {
 
     char **args = malloc(sizeof(char *) * (strlen(str) + 2));
-    memcpy(args, pargs, sizeof(char *) * (strlen(str) + 2));
+    memcpy(args, pargs, sizeof(char *) * (strlen(str) + 1));
     memmove(args + 2, args, sizeof(char *) * (strlen(str) + 1));
+
     args[0] = prog;
     args[1] = str;
     int ret = execve(prog, args, env);
@@ -21,13 +22,13 @@ int execer2(char *str, char *prog, char **pargs, char **env)
 int main(int argc, char **argv, char **env)
 {
 
-    char *tobe_lexed = argv[1];
-    char *new;
     if (argc < 3)
     {
         printf("Usage: ./ilexer 'string to be lexed' program_abs_Path\n");
         return (1);
     }
+    char *tobe_lexed = argv[1];
+    char *new;
     int i;
     i = 0;
     new = malloc(sizeof(char) * strlen(tobe_lexed));
