@@ -1,6 +1,6 @@
 NAME=ilexer
 
-SRC=ilexer.c
+SRC=main.c
 OBJ=$(SRC:.c=.o)
 
 all: $(NAME)
