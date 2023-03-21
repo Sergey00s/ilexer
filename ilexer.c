@@ -4,20 +4,18 @@
 #include <unistd.h>
 
 
-int execer2(char *str, char *prog, char **pargs, char **env)
+void execer2(char *str, char *prog, char **pargs, char **env)
 {
 
     char **args = malloc(sizeof(char *) * (strlen(str) + 2));
     memcpy(args, pargs, sizeof(char *) * (strlen(str) + 1));
     memmove(args + 2, args, sizeof(char *) * (strlen(str) + 1));
-
     args[0] = prog;
     args[1] = str;
     int ret = execve(prog, args, env);
     fprintf(stderr, "Error: execve failed\n");
     exit(ret);
 }
-
 
 int main(int argc, char **argv, char **env)
 {
@@ -31,7 +29,7 @@ int main(int argc, char **argv, char **env)
     char *new;
     int i;
     i = 0;
-    new = malloc(sizeof(char) * strlen(tobe_lexed));
+    new = calloc((strlen(tobe_lexed) + 1), sizeof(char));
     while (*tobe_lexed != '\0')
     {
         if (*tobe_lexed == ' ' || *tobe_lexed == '\t' || *tobe_lexed == '\n')
@@ -63,8 +61,6 @@ int main(int argc, char **argv, char **env)
         i++;
         tobe_lexed++;
     }
-    new[i] = 0;
-
-    int ret = execer2(new, argv[2], argv + 3 , env);
-    return (ret);
+    execer2(new, argv[2], argv + 3 , env);
+    return (1);
 }
