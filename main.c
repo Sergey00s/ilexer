@@ -22,7 +22,7 @@ int main(int argc, char **argv, char **env)
 
     if (argc < 3)
     {
-        printf("Usage: ./ilexer 'string to be lexed' program_abs_Path\n");
+        fprintf(stderr, "Usage: ./ilexer 'string to be lexed' program_abs_Path\n");
         return (1);
     }
     char *tobe_lexed = argv[1];
