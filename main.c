@@ -7,7 +7,7 @@
 void execer2(char *str, char *prog, char **pargs, char **env)
 {
 
-    char **args = malloc(sizeof(char *) * (strlen(str) + 3));
+    char **args = calloc((strlen(str) + 3), sizeof(char *));
     memcpy(args, pargs, sizeof(char *) * (strlen(str) + 1));
     memmove(args + 2, args, sizeof(char *) * (strlen(str) + 1));
     args[0] = prog;
