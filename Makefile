@@ -5,7 +5,6 @@ OBJ=$(SRC:.c=.o)
 
 all: $(NAME)
 
-
 $(NAME): $(OBJ)
 	$(CC) -o $(NAME) $(OBJ)
 
@@ -14,4 +13,11 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+
+
+build: all
+	rm -rf $(OBJ)
+
+re: clean all
+
 
