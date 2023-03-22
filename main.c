@@ -4,7 +4,7 @@ void execer2(char *str, char *prog, char **pargs, char **env)
 {
 
     char **args = calloc((strlen(str) + 3), sizeof(char *));
-    memcpy(args, pargs, sizeof(char *) * (strlen(str) + 1));
+    memmove(args, pargs, sizeof(char *) * (strlen(str) + 1));
     memmove(args + 2, args, sizeof(char *) * (strlen(str) + 1));
     args[0] = prog;
     args[1] = str;
@@ -113,13 +113,11 @@ void insert_arg(COMMAND *cmd)
     len = len_len(cmd->pargs);
     if (cmd->pos > len)
     {
-        fprintf(stderr, "Error: -i position is greater than the number of arguments\n");
-        exit(1);
+        cmd->pos = len;
     }
-    if (cmd->pos < 0)
+    else if (cmd->pos < 0)
     {
-        fprintf(stderr, "Error: -i position is less than 0\n");
-        exit(1);
+        cmd->pos = 0;
     }
     temp = calloc((len_len(cmd->pargs) + 3), sizeof(char *));
     memmove(temp, cmd->pargs, sizeof(char *) * (len + 1));
